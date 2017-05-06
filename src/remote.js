@@ -22,6 +22,15 @@ class Client extends RemoteProxy {
   updateTime(self,time) {
     console.log(time)
   }
+
+  //State
+  onUpdateState() {
+    mongodb.find(this,'world',{attr:'state'},this.updateState)
+  }
+
+  updateState(self,state){
+    console.log(state);
+  }
 }
 
 module.exports = Client
