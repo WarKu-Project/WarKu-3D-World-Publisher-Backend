@@ -22,11 +22,15 @@ class Client extends RemoteProxy {
 
   //Time
   onUpdateTime() {
-    mongodb.find(this,'world',{attr:'time'},this.updateTime)
+    mongodb.find(this,'world',{attr:'time'},this.updateClientTime)
   }
 
-  updateTime(self,time) {
-    console.log(time)
+  updateClientTime(self,time) {
+    pool.updateClientTime(time)
+  }
+
+  updateTime(time){
+    this.send(packet.updateTime(time))
   }
 
   //State
