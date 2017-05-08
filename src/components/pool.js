@@ -25,6 +25,9 @@ class ClientPool {
     if (time[0].value>=0)
       this.remotes.forEach((client)=>{client.updateTime(time[0].value)})
   }
+  notifyNewState(state){
+    this.remotes.forEach((client)=>{client.notifyNewState(state[0].value)})
+  }
 }
 
 module.exports = new ClientPool()

@@ -23,4 +23,10 @@ packet.updateTime = (time)=>{
   pw.finish()
   return pw.buffer
 }
+packet.updateNewState = (state)=>{
+  let pw = new PacketWriter(packet.CLIENT_UPDATE_STATE)
+  pw.append_string(state)
+  pw.finish()
+  return pw.buffer
+}
 module.exports = packet;

@@ -39,7 +39,11 @@ class Client extends RemoteProxy {
   }
 
   updateState(self,state){
-    console.log(state);
+    pool.notifyNewState(state)
+  }
+
+  notifyNewState(state){
+    this.send(packet.updateNewState(state))
   }
 }
 
