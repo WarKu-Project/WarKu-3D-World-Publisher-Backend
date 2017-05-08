@@ -12,9 +12,15 @@ let log = require('./util/log')
 //Initialize Server
 var PORT = process.argv[2]
 process.PORT = PORT
+process.workRate = 0
 
 server.setRemoteProxyClass(RemoteProxy)
 server.setPacketObject(packet)
 server.listen(PORT)
 mongo.update('server',{ type:'world', port:PORT},{type:'world', port:PORT })
 log.insert('world-server-'+PORT,'Initialize World Server')
+
+let time = 0
+setInterval(()=>{
+  mongo.update('server',{type:'world',port:PORT},{time:++time})
+},1000)

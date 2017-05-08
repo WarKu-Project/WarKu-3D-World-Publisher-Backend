@@ -30,6 +30,7 @@ class Client extends RemoteProxy {
   }
 
   updateTime(time){
+    mongodb.update('server',{type:'world',port:process.PORT},{workRate:++process.workRate})
     this.send(packet.updateTime(time))
   }
 
@@ -43,6 +44,7 @@ class Client extends RemoteProxy {
   }
 
   notifyNewState(state){
+    mongodb.update('server',{type:'world',port:process.PORT},{workRate:++process.workRate})
     this.send(packet.updateNewState(state))
   }
 }
