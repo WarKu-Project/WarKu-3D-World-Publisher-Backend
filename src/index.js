@@ -11,6 +11,7 @@ let log = require('./util/log')
 
 //Initialize Server
 var PORT = process.argv[2]
+process.PORT = PORT
 
 server.setRemoteProxyClass(RemoteProxy)
 server.setPacketObject(packet)
