@@ -7,4 +7,4 @@ process.PORT = process.argv[2]
 * Initialize Server
 **/
 let server = require('./server')
-server.init()
+server.init(process.PORT)
