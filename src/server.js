@@ -28,7 +28,7 @@ server.init = (port)=>{
 server.startProcessCounting = ()=>{
   let time = 0
   setInterval(()=>{
-    mongo.update('server',{type:'world',port:PORT},{time:++time,response:0})
+    mongo.update('server',{type:'world',port:process.PORT},{time:++time,response:0})
   },1000)
 }
 
