@@ -1,52 +1,37 @@
-//import library
+/**
+* Import DGT-NET RemoteProxy
+**/
 let RemoteProxy = require('dgt-net').server.RemoteProxy
 
+/**
+* Import packet and MongoDB
+**/
 let packet = require('./packet')
 let mongodb = require('./mongodb')
-let log = require('./util/log')
+
+/**
+* Initialize or access pool
+**/
 let pool = require('./components/pool')
 
+/**
+* Client Class
+**/
 class Client extends RemoteProxy {
 
+  /**
+  * Call when client connect to server
+  **/
   onConnected() {
     console.log("RemoteProxy There is a connection from " + this.getPeerName())
-    log.insert('world-server-'+process.PORT,this.getPeerName()+' connect to World Server at PORT'+process.PORT)
-    pool.addRemote(this)
   }
-
+  /**
+  * Call when client disconnect from server
+  **/
   onDisconnected() {
     console.log("RemoteProxy Disconnected from " + this.getPeerName())
-    log.insert('world-server-'+process.PORT,this.getPeerName()+' disconnect to World Server at PORT'+process.PORT)
-    pool.kickRemote(this)
   }
 
-  //Time
-  onUpdateTime() {
-    mongodb.find(this,'world',{attr:'time'},this.updateClientTime)
-  }
-
-  updateClientTime(self,time) {
-    pool.updateClientTime(time)
-  }
-
-  updateTime(time){
-    mongodb.update('server',{type:'world',port:process.PORT},{workRate:++process.workRate})
-    this.send(packet.updateTime(time))
-  }
-
-  //State
-  onUpdateState() {
-    mongodb.find(this,'world',{attr:'state'},this.updateState)
-  }
-
-  updateState(self,state){
-    pool.notifyNewState(state)
-  }
-
-  notifyNewState(state){
-    mongodb.update('server',{type:'world',port:process.PORT},{workRate:++process.workRate})
-    this.send(packet.updateNewState(state))
-  }
 }
 
 module.exports = Client
