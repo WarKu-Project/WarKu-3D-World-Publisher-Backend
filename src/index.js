@@ -2,15 +2,21 @@
 * Receive PORT from process
 **/
 process.PORT = process.argv[2]
+if (!process.PORT)
+  process.exit(1)
 /**
 * Initialize Server
 **/
 let server = require('./server/server')
 server.init(process.PORT)
 /**
+* Initialize Receiver
+**/
+let receiver = require('./receiver/receiver')
+/**
 * Import MongoDB
 **/
-let mongodb = require('../mongodb')
+let mongodb = require('./mongodb')
 /**
 * Terminate Condition
 **/
